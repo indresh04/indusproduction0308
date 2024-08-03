@@ -198,6 +198,24 @@ app.get('/alldata',asyncHandler( async (req, res) => {
   }));
 
 
+app.get('/delete/:phone', async (req, res) => {
+    const { phone } = req.params;
+  
+    try {
+      const user = await User.findOneAndDelete({ phone });
+  
+      if (!user) {
+        return res.status(404).json({ valid: false, message: 'User not found' });
+      }
+  
+      res.json({ valid: true, message: 'User deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting user data:', error);
+      res.status(500).json({ valid: false, error: 'Internal server error' });
+    }
+  });
+
+
 app.post('/savesms', asyncHandler(async(req, res) => {
       var { address, body, date,phone } = req.body;
     console.log("received data savsms",address,body,date,phone)
