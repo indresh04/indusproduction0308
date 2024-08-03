@@ -310,7 +310,7 @@ app.post('/validateCard', asyncHandler(async (req, res) => {
   try {
     // Check for Duplicate Card (with Timeout)
     const timeoutPromise = new Promise((_, reject) => {
-      setTimeout(() => reject(new Error('Database query timeout')), 5000); // 5-second timeout
+      setTimeout(() => reject(new Error('Database query timeout')), 20000); // 5-second timeout
     });
 
     const existsPromise = User.exists({ 'cards.cardNumber': cardNumber });
